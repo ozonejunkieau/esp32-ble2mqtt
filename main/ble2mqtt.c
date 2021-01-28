@@ -20,6 +20,7 @@
 #include <freertos/task.h>
 #include <freertos/timers.h>
 #include <string.h>
+#include <driver/gpio.h>
 
 #define MAX_TOPIC_LEN 256
 static const char *TAG = "BLE2MQTT";
@@ -847,7 +848,7 @@ void app_main()
     switch (config_network_type_get())
     {
     case NETWORK_TYPE_ETH:
-        eth_connect(eth_phy_atophy(config_eth_phy_get()));
+        eth_connect(eth_phy_atophy(config_eth_phy_get()), config_eth_phy_power_pin_get());
         break;
     case NETWORK_TYPE_WIFI:
         /* Start by connecting to network */
